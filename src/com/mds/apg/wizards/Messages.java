@@ -32,6 +32,8 @@ public class Messages extends NLS {
 	public static String PagePhonegapPathSet_EnterPhoneGapPath;
 	public static String PagePhonegapPathSet_EnterPhoneGapPathTooltip;
 	public static String PagePhonegapPathSet_ErrorDirNameEmpty;
+	public static String PagePhonegapPathSet_ErrorInvalidLocation;
+	public static String PagePhonegapPathSet_ErrorNotFoundSampleDir;
 	public static String PagePhonegapPathSet_PhoneGapPath;
 	public static String PagePhonegapPathSet_StatusDirEmpty;
 	public static String PagePhonegapPathSet_StatusDirNameEmpty;
