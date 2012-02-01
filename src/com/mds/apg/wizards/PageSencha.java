@@ -36,12 +36,12 @@ import org.eclipse.swt.widgets.Text;
 public class PageSencha extends WizardSection {
 
     // Set up storage for persistent initializers
-    private final static String SENCHA_DIR = com.mds.apg.Activator.PLUGIN_ID + ".senchadir";    
-    private final static String SENCHA_CHECK = com.mds.apg.Activator.PLUGIN_ID + ".senchacheck";
+    private final static String SENCHA_DIR = com.mds.apg.Activator.PLUGIN_ID + ".senchadir"; //$NON-NLS-1$
+    private final static String SENCHA_CHECK = com.mds.apg.Activator.PLUGIN_ID + ".senchacheck"; //$NON-NLS-1$
 
     /** State variables */
-    private String mSenchaPathCache = "";
- 
+    private String mSenchaPathCache = ""; //$NON-NLS-1$
+
     // widgets
     Button mSenchaCheck;
     private Button mSenchaKitchenSink;
@@ -50,7 +50,7 @@ public class PageSencha extends WizardSection {
 
     PageSencha(AndroidPgProjectCreationPage wizardPage, Composite parent) {
         super(wizardPage);
-        mSenchaPathCache = doGetPreferenceStore().getString(SENCHA_DIR);        
+        mSenchaPathCache = doGetPreferenceStore().getString(SENCHA_DIR);
         createGroup(parent);
     }
 
@@ -58,7 +58,7 @@ public class PageSencha extends WizardSection {
      * Creates the group for the Sencha options: [radio] Use Sencha
      * [check] Use default location
      * Location [text field] [browse button]
-     * 
+     *
      * @param parent the parent composite
      */
     @Override
@@ -69,16 +69,14 @@ public class PageSencha extends WizardSection {
         group.setLayout(new GridLayout());
         group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         group.setFont(parent.getFont());
-        group.setText("Sencha Touch");
-        
+        group.setText("Sencha Touch"); //$NON-NLS-1$
+
         // Check box for choosing to include Sencha Touch
 
         mSenchaCheck = new Button(group, SWT.CHECK);
-        mSenchaCheck.setText("Include Sencha Touch libraries in project");
-        mSenchaCheck.setSelection(doGetPreferenceStore().getString(SENCHA_CHECK) != "");
-        mSenchaCheck.setToolTipText("Check to use Sencha Touch mobile JavaScript framework\n"
-                + "Note, you must already have downloaded Sencha Touch separately\n"
-                + "See http://www.sencha.com/products/touch for more details");
+        mSenchaCheck.setText(Messages.PageSencha_Include);
+        mSenchaCheck.setSelection(doGetPreferenceStore().getString(SENCHA_CHECK) != ""); //$NON-NLS-1$
+        mSenchaCheck.setToolTipText(Messages.PageSencha_IncludeTooltop);
 
         SelectionListener senchaListener = new SelectionAdapter() {
             @Override
@@ -94,7 +92,7 @@ public class PageSencha extends WizardSection {
             }
         };
         mSenchaCheck.addSelectionListener(senchaListener);
-        
+
         // Directory chooser for local Sencha installation
 
         mSenchaGroup = new Composite(group, SWT.NONE);
@@ -104,23 +102,22 @@ public class PageSencha extends WizardSection {
             mSenchaGroup.setFont(parent.getFont());
 
         Label label = new Label(mSenchaGroup, SWT.NONE);
-        label.setText("Sencha Location:");
-        label.setToolTipText("Path where Sencha Touch is installed\n");
+        label.setText(Messages.PageSencha_Location);
+        label.setToolTipText(Messages.PageSencha_LocationTooltip);
 
         mSenchaPathField = new Text(mSenchaGroup, SWT.BORDER);
         mSenchaPathField.setText(getLocationSave());
         setupDirectoryBrowse(mSenchaPathField, parent, mSenchaGroup);
-        
+
         // Check box to seed project with Sencha Kitchen Sink app.
-        // This should eventually be a scroll box like the Android sample seeder, 
+        // This should eventually be a scroll box like the Android sample seeder,
         // But many of the other Sencha examples specific to tablets.
-        
+
         mSenchaKitchenSink = new Button(group, SWT.CHECK);
-        mSenchaKitchenSink.setText("Create project with Sencha Touch Kitchen Sink app");
+        mSenchaKitchenSink.setText(Messages.PageSencha_KitchenSink);
         mSenchaKitchenSink.setSelection(false);
-        mSenchaKitchenSink.setToolTipText("Create an Sencha"
-                + " kitchen sink app populated from the Sencha installation");
-        
+        mSenchaKitchenSink.setToolTipText(Messages.PageSencha_KitchenSinkTooltip);
+
         /**
          * Enables the Contents section based on the Kitchen Sink checkbox
          * Contents isn't needed if we're making a Sencha Kitchen Sink
@@ -134,7 +131,7 @@ public class PageSencha extends WizardSection {
             }
         };
         mSenchaKitchenSink.addSelectionListener(senchaKsListener);
-        
+
         enableSenchaWidgets(false);  // to get the visibility and initial settings
     }
 
@@ -143,7 +140,7 @@ public class PageSencha extends WizardSection {
      */
     @Override
     String getValue() {
-        return mSenchaPathField == null ? "" : mSenchaPathField.getText().trim();
+        return mSenchaPathField == null ? "" : mSenchaPathField.getText().trim(); //$NON-NLS-1$
     }
 
     /*
@@ -169,18 +166,18 @@ public class PageSencha extends WizardSection {
     void setLocationSave(String s) {
         mSenchaPathCache = s;
     }
-    
+
     /** Returns the value of the "Include Sencha ..." checkbox. */
     protected boolean senchaChecked() {
         return mSenchaCheck.getSelection();
     }
-    
+
     /** Returns the value of the "Create project with Sencha kitchen Sink checkbox */
     protected boolean useSenchaKitchenSink() {
         return mSenchaKitchenSink.getSelection();
     }
 
-     
+
     /**
      * Enables or disable the Sencha widgets depending on the user selection:
      * the location path is enabled when using the "existing source" mode (i.e. not new project)
@@ -190,11 +187,11 @@ public class PageSencha extends WizardSection {
         boolean senchaChecked = senchaChecked();
         mSenchaGroup.setVisible(senchaChecked);
         mSenchaKitchenSink.setVisible(senchaChecked);
-        doGetPreferenceStore().setValue(SENCHA_CHECK, senchaChecked ? "true" : "");
+        doGetPreferenceStore().setValue(SENCHA_CHECK, senchaChecked ? "true" : ""); //$NON-NLS-1$ //$NON-NLS-2$
         if (!senchaChecked) {
             mSenchaKitchenSink.setSelection(false);  // clear ks as well
-        }  
-        if (doUpdate) {          
+        }
+        if (doUpdate) {
             update(null);
         }
     }
@@ -209,8 +206,7 @@ public class PageSencha extends WizardSection {
 
         File locationDir = new File(getValue());
         if (!locationDir.exists() || !locationDir.isDirectory()) {
-            return mWizardPage.setStatus("A valid directory name that includes an uncompressed " +
-                    "Sencha Touch installation should be specified in the 'Sencha Location' field.",
+            return mWizardPage.setStatus(Messages.PageSencha_ErrorInvalidDirectory,
                     AndroidPgProjectCreationPage.MSG_ERROR);
         }
 
@@ -218,7 +214,7 @@ public class PageSencha extends WizardSection {
         String[] l = locationDir.list();
         if (l.length == 0) {
             return mWizardPage.setStatus(
-                    "The directory is empty. It should be the location of your Sencha download",
+                    Messages.PageSencha_ErrorDirectoryEmpty,
                     AndroidPgProjectCreationPage.MSG_ERROR);
         }
 
@@ -230,22 +226,20 @@ public class PageSencha extends WizardSection {
         boolean foundExamples = false;
 
         for (String s : l) {
-            if (s.equals("sencha-touch.js")) {
+            if (s.equals("sencha-touch.js")) { //$NON-NLS-1$
                 foundSenchaJs = true;
-            } else if (s.equals("resources")) {
+            } else if (s.equals("resources")) { //$NON-NLS-1$
                 foundResources = true;
-            } else if (s.equals("examples")) {
+            } else if (s.equals("examples")) { //$NON-NLS-1$
                 foundExamples = true;
             }
         }
         if (!foundSenchaJs || !foundResources) {
-            return mWizardPage.setStatus(getValue() + " must include a sencha-touch.js "
-                    + "and resources directory", AndroidPgProjectCreationPage.MSG_ERROR);
+            return mWizardPage.setStatus(getValue() + Messages.PageSencha_ErrorNotFoundSenchaJS, AndroidPgProjectCreationPage.MSG_ERROR);
         }
         if (!foundExamples && useSenchaKitchenSink()) {
             return mWizardPage.setStatus(
-                    getValue() + " must include a kitchensink subdirectory "
-                            + "in the examples directory", AndroidPgProjectCreationPage.MSG_ERROR);
+                    getValue() + Messages.PageSencha_ErrorNotFoundKitchensink, AndroidPgProjectCreationPage.MSG_ERROR);
         }
 
         // TODO more validation

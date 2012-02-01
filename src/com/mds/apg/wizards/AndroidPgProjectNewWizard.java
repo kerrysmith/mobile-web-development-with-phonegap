@@ -63,11 +63,11 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
     private AndroidPgProjectCreationPage mPhonegapPage;
     private IProject mNewAndroidProject;
 
-    public void init(IWorkbench workbench, IStructuredSelection selection) {       
+    public void init(IWorkbench workbench, IStructuredSelection selection) {
         setHelpAvailable(false); // TODO have help
         mPhonegapPage = createPhonegapPage();
         super.init(workbench, selection);
-        setWindowTitle(Messages.AndroidPgProjectNewWizard_Title); 
+        setWindowTitle(Messages.AndroidPgProjectNewWizard_Title);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
     /**
      * Performs any actions appropriate in response to the user having pressed
      * the Finish button, or refuse if finishing now is not permitted: here, it
-     * actually creates the Android workspace project and then adds in the 
+     * actually creates the Android workspace project and then adds in the
      * phonegap components
      *
      * @return True
@@ -100,15 +100,15 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
         //  should be one new file corresponding to the new Android project
         mNewAndroidProject = findNewAndroidProject(preAndroidCreateDirectoryList, postAndroidCreateDirectoryList);
 
-        if (mNewAndroidProject == null) return false;        
+        if (mNewAndroidProject == null) return false;
         if (!populatePhonegapComponents()) return false;
 
         // Open the default JavaScript Perspective  - Despite the name, it is from JSDT!
         OpenJavaPerspectiveAction action = new OpenJavaPerspectiveAction();
         action.run();
-        
+
         // Open index.html to start
-        
+
         IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         IResource file = mNewAndroidProject.getFile("/assets/www/index.html"); //$NON-NLS-1$
         if (file.exists()) {   // may not exist on PureImport
@@ -120,7 +120,7 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
         } else {
             file = mNewAndroidProject.getFolder("/assets/www/");  //$NON-NLS-1$
         }
-        
+
         // And open the project explorer
         IViewReference reference = activePage.findViewReference(IPageLayout.ID_PROJECT_EXPLORER);
         if (reference == null) reference = activePage.findViewReference(JavaScriptUI.ID_PACKAGES);
@@ -142,7 +142,7 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
     private boolean populatePhonegapComponents() {
         final PageInfo pageInfo = new PageInfo(
                 mPhonegapPage.mInitContentsDialog.getValue(),
-                mPhonegapPage.mPhonegapDialog.getValue(), 
+                mPhonegapPage.mPhonegapDialog.getValue(),
                 mPhonegapPage.mPhonegapDialog.gitSampleSpot() != null,
                 mPhonegapPage.mPhonegapDialog.useFromPackaged(),
                 mPhonegapPage.mPhonegapDialog.getPhonegapJsName(),
@@ -152,12 +152,12 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
                 Platform.getLocation().toString() + "/"+ mNewAndroidProject.getName() + "/", //$NON-NLS-1$ //$NON-NLS-2$
                 mNewAndroidProject,
                 mPhonegapPage.mJqmDialog.jqmChecked(),
-                mPhonegapPage.mJqmDialog.useFromPackaged() ? null : 
+                mPhonegapPage.mJqmDialog.useFromPackaged() ? null :
                     mPhonegapPage.mJqmDialog.getValue(),
                 mPhonegapPage.mJqmDialog.useJqmDemo(),
                 mPhonegapPage.mJqmDialog.mJqmVersion,
                 mPhonegapPage.mSenchaDialog.getValue(),
-                mPhonegapPage.mSenchaDialog.senchaChecked(), 
+                mPhonegapPage.mSenchaDialog.senchaChecked(),
                 mPhonegapPage.mSenchaDialog.useSenchaKitchenSink());
 
         // Create a monitored operation to create the actual project
@@ -172,11 +172,11 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
         runAsyncOperation(op);
         return true;
     }
-    
+
     /**
      * Runs the operation in a different thread and display generated
      * exceptions.
-     * 
+     *
      * @param op The asynchronous operation to run.
      */
     private void runAsyncOperation(WorkspaceModifyOperation op) {
@@ -215,7 +215,7 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
             e.printStackTrace();
         }
     }
-    
+
     // Thanks to
     // http://code.hammerpig.com/convert-an-array-to-an-arraylist-in-java.html
     // and
@@ -226,7 +226,7 @@ public class AndroidPgProjectNewWizard extends NewProjectWizard implements INewW
         Collections.addAll(results, values);
         return results;
     }
-    
+
     private IProject findNewAndroidProject(String[] pre, String[] post) {
         ArrayList<String> preList = CreateStringList(pre);
         ArrayList<String> postList = CreateStringList(post);

@@ -51,6 +51,16 @@ public class Messages extends NLS {
 	public static String PagePhonegapPathSet_PhoneGapPath;
 	public static String PagePhonegapPathSet_StatusDirEmpty;
 	public static String PagePhonegapPathSet_StatusDirNameEmpty;
+	public static String PageSencha_ErrorDirectoryEmpty;
+	public static String PageSencha_ErrorInvalidDirectory;
+	public static String PageSencha_ErrorNotFoundKitchensink;
+	public static String PageSencha_ErrorNotFoundSenchaJS;
+	public static String PageSencha_Include;
+	public static String PageSencha_IncludeTooltop;
+	public static String PageSencha_KitchenSink;
+	public static String PageSencha_KitchenSinkTooltip;
+	public static String PageSencha_Location;
+	public static String PageSencha_LocationTooltip;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
